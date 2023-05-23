@@ -22,6 +22,7 @@ router.get('/users' , async (req , res)=>{
 })
 router.get('/user/:id' , async (req , res)=>{
     const _id = req.params.id 
+    
     try{
         const user =  await User.findById({
             _id
