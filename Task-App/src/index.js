@@ -1,5 +1,6 @@
  const express = require('express')
  const swaggerDoc = require('swagger-ui-express')
+ const bcrypt = require('bcryptjs')
  require('./db/mongoose')
  
  const swaggerDoccs = require("./helper/documentation")
