@@ -1,13 +1,13 @@
 const express = require('express')
-
+const auth = require('../middleware/auth')
 const router = new express.Router()
 
 const Task = require('../models/task') 
 
-router.delete('/task/:id' , async (req,res)=>{
+router.delete('/task/:id',auth , async (req,res)=>{
     const _id = req.params.id
     try{
-        const task = await Task.findByIdAndDelete(_id)
+        const task = await Task.findOneAndDelete({_id , owner:req.user._id})
         if(!task){
             return res.status(404).send("not found")
         }
@@ -17,7 +17,7 @@ router.delete('/task/:id' , async (req,res)=>{
     }
 })
 
-router.patch("/task/:id" , async (req , res)=>{
+router.patch("/task/:id" ,auth ,  async (req , res)=>{
     const _id  = req.params.id
     console.log(_id)
     const update = ['dec' , "completed"]
@@ -26,26 +26,25 @@ router.patch("/task/:id" , async (req , res)=>{
             return update.includes(upd)
     })
     if(!isVal){
-        return res.status(400).send({error:"cant performe the action"})
+        return res.status(400).send({error:"Invalid update"})
     }
     try{
-        const task  = await Task.findById(_id)
-        updates.forEach((update)=>{
-            task[update] = req.body[update]
-        })
-        await task.save()
-        // const task = await Task.findByIdAndUpdate(_id,req.body,{new:true , runValidators:true}) 
+        const task  = await Task.findOne({_id  , owner:req.user._id})
         if(!task){
             return res.status(404).send("not found")
         }
+        updates.forEach((update)=>{
+            task[update] = req.body[update]
+        })
+        await task.save() 
         res.status(200).send(task)
     }catch(e){
         res.status(500).send(e.message) 
     }
 })
 
-router.post("/task" , async (req , res)=>{
-    const task = new Task(req.body)
+router.post("/task", auth , async (req , res)=>{
+    const task = new Task({...req.body , owner:req.user._id})
     try{
         await task.save()
         res.status(201).send(task)
@@ -53,19 +52,19 @@ router.post("/task" , async (req , res)=>{
         res.status(500).send(e.message)
     } 
 })
-router.get("/tasks" , async (req , res)=>{
+router.get("/tasks" ,auth ,async (req , res)=>{
     try{
-        const tasks = await Task.find({})
+        const tasks = await Task.find({owner : req.user._id})
         res.status(201).send(tasks)
     }catch(e){
         res.status(500).send(e.message)
     }
 })
-router.get("/task/:id" , async (req , res)=>{
+router.get("/task/:id" ,auth ,async (req , res)=>{
     const _id = req.params.id
     try{
-        const task =   await Task.findById({
-            _id
+        const task =   await Task.findOne({
+            _id , owner: req.user._id
         })
         if(!task){
             return res.status(404).send("not fund")

@@ -2,6 +2,7 @@ const mongoose = require("mongoose")
 const vaidator = require('validator') 
 const  bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const Task = require("./task")
 
 const userSchima = new mongoose.Schema({
     name : {
@@ -38,6 +39,11 @@ const userSchima = new mongoose.Schema({
     }]
 })
 
+userSchima.virtual('tasks' , {
+    ref:'Task',
+    localField:'_id',
+    foreignField:'owner'
+})
 
 userSchima.methods.generateAuthToken = async function(){
           const token = jwt.sign({_id:this._id.toString()},'fightlikeurthethirdmonkey' )
@@ -45,7 +51,14 @@ userSchima.methods.generateAuthToken = async function(){
           await this.save()
           return token
 }
+userSchima.methods.toJSON =  function(){
+    const userObject = this.toObject()
+    
+    delete userObject.password
+    delete userObject.tokens
 
+    return userObject
+}
 userSchima.statics.findByCredentias = async (email , password)=>{
     
             const user = await User.findOne({
@@ -58,7 +71,6 @@ userSchima.statics.findByCredentias = async (email , password)=>{
             if(!isMatch){
                 throw new Error("Wrong password or email")
             }
-            console.log(user)
             return user
 
 }
@@ -71,6 +83,12 @@ userSchima.pre("save", async function(next){
             }
             next()
 })
+
+userSchima.pre('remove' , async function(next){
+    await Task.deleteMany({owner:this._id})
+    next()
+})
+
 
 const User = mongoose.model('User' , userSchima
 )
