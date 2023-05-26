@@ -52,21 +52,7 @@ router.post('/user/logoutFromAll' , auth , async (req,res)=>{
         res.status(501).send()
     }
 })
-router.get('/user/:id' , async (req , res)=>{
-    const _id = req.params.id 
-    
-    try{
-        const user =  await User.findById({
-            _id
-        })
-        if(!user){
-            return res.status(404).send("not found")
-        }
-        res.status(200).send(user)
-    }catch(e){
-        res.status(500).send(e.message)
-    }
-})
+ 
 router.patch("/user/update",auth , async (req , res)=>{
     const update = ['name' , "age" ,"email", 'password']
     const updates = Object.keys(req.body)
