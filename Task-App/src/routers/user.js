@@ -80,12 +80,11 @@ router.patch("/user/update",auth , async (req , res)=>{
         updates.forEach((update)=>{
             req.user[update] = req.body[update]
         })
-        await user.save()
-        // const user = await User.findByIdAndUpdate(_id,req.body,{new:true , runValidators:true}) 
-        if(!user){
+        await req.user.save()
+        if(!req.user){
             return res.status(404).send("not found")
         }
-        res.status(200).send(user)
+        res.status(200).send(req.user)
     }catch(e){
         res.status(500).send(e.message) 
     }
@@ -93,9 +92,6 @@ router.patch("/user/update",auth , async (req , res)=>{
 router.delete('/user/delete',auth , async (req,res)=>{
     try{
         const user = await User.findByIdAndDelete(req.user._id)
-        // if(!user){
-        //     return res.status(404).send("not found")
-        // }
         res.status(200).send(user)
     }catch(e){
         res.status(500).send(e.message) 

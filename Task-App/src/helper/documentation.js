@@ -1,5 +1,6 @@
 const { json } = require("express");
 const User = require('../routers/user.docs')
+const Task = require('../routers/task.docs')
 const swaggerDoccs = {
     
     openapi: "3.0.0",
@@ -22,9 +23,27 @@ const swaggerDoccs = {
     tags:[{
         name : "user",
         description : "user routes"
-       
-    }],
-    paths: User
+    },
+    {
+        name : "task",
+        description : "tsak routes"
+    }
+    ],
+    paths:  {...User , ...Task},
+    components: {
+        securitySchemes: {
+          BearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+            description: 'Bearer Token',
+            name: 'Authorization',
+            in: 'header',
+            value: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDZmMWI4M2VmNWMxZjYxYmVmNDBlZDQiLCJpYXQiOjE2ODUwOTI2NjF9.7R3PUNzjjHvIHuEDFbWy2sOZbm7SUOZ3dPrRl-je0Pw'
+          },
+        },
+      },
+
     
 }
 

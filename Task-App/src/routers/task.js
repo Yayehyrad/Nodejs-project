@@ -4,6 +4,16 @@ const router = new express.Router()
 
 const Task = require('../models/task') 
 
+
+router.get("/task/notCompleted" ,auth ,async (req , res)=>{
+    try{
+        const tasks = await Task.find({owner : req.user._id , completed : false})
+        res.status(201).send(tasks)
+    }catch(e){
+        res.status(500).send(e.message)
+    }
+})
+
 router.delete('/task/:id',auth , async (req,res)=>{
     const _id = req.params.id
     try{
@@ -20,7 +30,7 @@ router.delete('/task/:id',auth , async (req,res)=>{
 router.patch("/task/:id" ,auth ,  async (req , res)=>{
     const _id  = req.params.id
     console.log(_id)
-    const update = ['dec' , "completed"]
+    const update = ['desc' , "completed"]
     const updates = Object.keys(req.body)
     const isVal = updates.every((upd)=>{
             return update.includes(upd)
