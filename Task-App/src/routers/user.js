@@ -95,6 +95,6 @@ router.delete('/user/:id', async (req,res)=>{
     }
 })
 
-
+// update 
  
 module.exports = router
