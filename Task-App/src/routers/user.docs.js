@@ -387,57 +387,57 @@ const updateUser={
               },
             },
           },
-          // '400': {
-          //   description: 'invaid action',
-          //   content: {
-          //     'application/json': {
-          //       schema: {
-          //       type: 'object',
-          //       example:{
-          //       error : 'invaid action'
-          //       }
-          //       },
-          //     },
-          //   },
-          // },
-          // '401': {
-          //   description: 'Unauthorized',
-          //   content: {
-          //     'application/json': {
-          //       schema: {
-          //       type: 'object',
-          //       example:{
-          //       error : 'Unauthorized'
-          //       }
-          //       },
-          //     },
-          //   },
-          // },
-          // '404': {
-          //   description: 'not found',
-          //   content: {
-          //     'application/json': {
-          //       schema: {
-          //       type: 'object',
-          //       example:{
-          //       error : 'not found'
-          //       }
-          //       },
-          //     },
-          //   },
-          // },
+          '400': {
+            description: 'invaid action',
+            content: {
+              'application/json': {
+                schema: {
+                type: 'object',
+                example:{
+                error : 'invaid action'
+                }
+                },
+              },
+            },
+          },
+          '401': {
+            description: 'Unauthorized',
+            content: {
+              'application/json': {
+                schema: {
+                type: 'object',
+                example:{
+                error : 'Unauthorized'
+                }
+                },
+              },
+            },
+          },
+          '404': {
+            description: 'not found',
+            content: {
+              'application/json': {
+                schema: {
+                type: 'object',
+                example:{
+                error : 'not found'
+                }
+                },
+              },
+            },
+          },
 
-          // '500': {
-          //   description: 'Internal server error',
-          //   content: {
-          //     'application/json': {
-          //       type: 'object',
-          //       example:{
-          //       error : 'the error message'
-          //       }
-          //     },
-          //   },
-          // },
+          '500': {
+            description: 'Internal server error',
+            content: {
+              'application/json': {
+                type: 'object',
+                example:{
+                error : 'the error message'
+                }
+              },
+            },
+          },
     
        
       
