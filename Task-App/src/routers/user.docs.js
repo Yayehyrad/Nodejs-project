@@ -3,7 +3,7 @@ const userres = {
         tags:['user'],
         description:"list of all users",
         responses:{
-            200 : {
+            201 : {
                 description:"ok",
                 content:{
                     "appication/json":{
@@ -18,12 +18,7 @@ const userres = {
                     }
                 }
             },
-            '400':{
-            description: "Invalid ID supplied"},
-            '404':{  description: "user not found"},
-          
-            '405':{description: "Validation exception"}
-            
+            '500':{description: "Internal Server Error"}        
         }
     },
     post:{
@@ -40,7 +35,7 @@ const userres = {
                     name: {
                       type: 'string',
                       description: 'Name of the user',
-                      example: 'abel',
+                      example: 'test',
                     },
                     age: {
                       type: 'number',
@@ -50,12 +45,12 @@ const userres = {
                     email: {
                       type: 'string',
                       description: 'Email of the user',
-                      example: 'abe@g.com',
+                      example: 'test200@gmail.com',
                     },
                     password: {
                       type: 'string',
                       description: 'Password of the user',
-                      example: 'abel123r',
+                      example: 'test12345',
                     },
                   },
                 },
@@ -69,21 +64,20 @@ const userres = {
                     schema:{
                         type:"object",
                         example:{
-                            name:"abell",
-                            email:"email@g.com",
-                            age:"12",
-                            password:"asdaDS",
-                            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDcwNjM4OTFmOTZjMmE3OTI5Y2RhNWMiLCJpYXQiOjE2ODUwODcxMTR9.wvA4Vpo_VHm2ezkIB2pfy2hVgjLm1YbNJTwnynScLdI" 
+                          user: {
+                            name: "test",
+                            email: "test200@gmail.com",
+                            age: 12,
+                            _id: "6476d42ec276038e1fc9b780",
+                            __v: 1
+                          },
+                          token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc2ZDQyZWMyNzYwMzhlMWZjOWI3ODAiLCJpYXQiOjE2ODU1MDkxNjd9.BWpWpOscUDfyvjQ69R4BDwij0xX6nEh3Tbu9vZ4LvGU"
                         }
                     }
                 }
             }
         },
-        '400':{
-        description: "Invalid ID supplied"},
-        '404':{  description: "user not found"},
-      
-        '405':{description: "Validation exception"}
+        '500':{description: "Internal Server Error"}
         
     }
 }
@@ -143,12 +137,12 @@ const userlogin = {
                   email: {
                     type: 'string',
                     description: 'User email',
-                    example: 'john@example.com',
+                    example: 'test200@gmail.com',
                   },
                   password: {
                     type: 'string',
                     description: 'User password',
-                    example: 'password123',
+                    example: 'test12345',
                   },
                 },
               },
@@ -194,7 +188,7 @@ const userlogin = {
                     message: {
                       type: 'string',
                       description: 'Error message',
-                      example: 'Invalid credentials',
+                      example: 'invalid email or password',
                     },
                   },
                 },
@@ -216,20 +210,30 @@ const profie = {
         responses: {
           '200': {
             description: 'Successful operation',
-            content: {
-              'application/json': {
+            content:{
+              'application/json':{
                 schema: {
-              
-                },
-              },
-            },
+                      type: 'object',
+                      description: 'User object',
+                      example : {
+                        _id : "646f1b83ef5c1f61bef40ed4",
+                        name: "test2",
+                        email: "test2@gmail.com",
+                        age: 12,
+                        __v: 5
+                      }}
+              }
+            }
           },
           '401': {
             description: 'Unauthorized',
             content: {
               'application/json': {
                 schema: {
-                
+                type: 'object',
+                example:{
+                error : 'Unauthorized'
+                }
                 },
               },
             },
@@ -238,9 +242,10 @@ const profie = {
             description: 'Internal server error',
             content: {
               'application/json': {
-                schema: {
-                
-                },
+                type: 'object',
+                example:{
+                error : 'the error message'
+                }
               },
             },
           },
@@ -261,20 +266,16 @@ const logout = {
         responses: {
           '200': {
             description: 'Successful operation',
-            content: {
-              'application/json': {
-                schema: {
-              
-                },
-              },
-            },
           },
           '401': {
             description: 'Unauthorized',
             content: {
               'application/json': {
                 schema: {
-                
+                type: 'object',
+                example:{
+                error : 'Unauthorized'
+                }
                 },
               },
             },
@@ -283,9 +284,10 @@ const logout = {
             description: 'Internal server error',
             content: {
               'application/json': {
-                schema: {
-                
-                },
+                type: 'object',
+                example:{
+                error : 'the error message'
+                }
               },
             },
           },
@@ -305,20 +307,16 @@ const logoutAll = {
         responses: {
           '200': {
             description: 'Successful operation',
-            content: {
-              'application/json': {
-                schema: {
-              
-                },
-              },
-            },
           },
           '401': {
             description: 'Unauthorized',
             content: {
               'application/json': {
                 schema: {
-                
+                type: 'object',
+                example:{
+                error : 'Unauthorized'
+                }
                 },
               },
             },
@@ -327,9 +325,10 @@ const logoutAll = {
             description: 'Internal server error',
             content: {
               'application/json': {
-                schema: {
-                
-                },
+                type: 'object',
+                example:{
+                error : 'the error message'
+                }
               },
             },
           },
@@ -388,6 +387,57 @@ const updateUser={
               },
             },
           },
+          // '400': {
+          //   description: 'invaid action',
+          //   content: {
+          //     'application/json': {
+          //       schema: {
+          //       type: 'object',
+          //       example:{
+          //       error : 'invaid action'
+          //       }
+          //       },
+          //     },
+          //   },
+          // },
+          // '401': {
+          //   description: 'Unauthorized',
+          //   content: {
+          //     'application/json': {
+          //       schema: {
+          //       type: 'object',
+          //       example:{
+          //       error : 'Unauthorized'
+          //       }
+          //       },
+          //     },
+          //   },
+          // },
+          // '404': {
+          //   description: 'not found',
+          //   content: {
+          //     'application/json': {
+          //       schema: {
+          //       type: 'object',
+          //       example:{
+          //       error : 'not found'
+          //       }
+          //       },
+          //     },
+          //   },
+          // },
+
+          // '500': {
+          //   description: 'Internal server error',
+          //   content: {
+          //     'application/json': {
+          //       type: 'object',
+          //       example:{
+          //       error : 'the error message'
+          //       }
+          //     },
+          //   },
+          // },
     
        
       
@@ -407,14 +457,31 @@ const deleteUser = {
         responses: {
           '204': {
             description: 'Successful deletion',
-          },
-          '404': {
-            description: 'Not found',
             content: {
               'application/json': {
                 schema: {
-                  type: 'string',
-                  description: 'Error message',
+                type: 'object',
+                example:{
+                  _id: "646f1b83ef5c1f61bef40ed4",
+                  name: "test2",
+                  email: "test2@gmail.com",
+                  age: 12,
+                  __v: 5
+                }
+                },
+              },
+            },
+
+          },
+          '401': {
+            description: 'Unauthorized',
+            content: {
+              'application/json': {
+                schema: {
+                type: 'object',
+                example:{
+                error : 'Unauthorized'
+                }
                 },
               },
             },
@@ -424,9 +491,11 @@ const deleteUser = {
             content: {
               'application/json': {
                 schema: {
-                  type: 'string',
-                  description: 'Error message',
-                },
+                  type: 'object',
+                  example:{
+                  error : 'error message'
+                  }
+                  },
               },
             },
           },

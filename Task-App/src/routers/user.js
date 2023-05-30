@@ -60,7 +60,7 @@ router.patch("/user/update",auth , async (req , res)=>{
             return update.includes(upd)
     })
     if(!isVal){
-        return res.status(400).send({error:"cant performe the action"})
+        return res.status(400).send({error:"invaid action"})
     }
     try{
         updates.forEach((update)=>{
@@ -68,7 +68,7 @@ router.patch("/user/update",auth , async (req , res)=>{
         })
         await req.user.save()
         if(!req.user){
-            return res.status(404).send("not found")
+            return res.status(404).send({error:"not found"})
         }
         res.status(200).send(req.user)
     }catch(e){
