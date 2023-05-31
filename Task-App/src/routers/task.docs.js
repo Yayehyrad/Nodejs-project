@@ -12,17 +12,47 @@ const alltasks = {
                 description:"ok",
                 content:{
                     "appication/json":{
-                        schema:{
-                            type:"object",
-                            example:{
-                                desc:"abell",
-                                completed: true,
-                            }
-                        }
+                      schema:{
+                        type:"object",
+                        example:{
+                        
+                            desc: "home work",
+                            completed: true,
+                            owner: "6476e9bf27d1b7b864dda166",
+                            _id: "6476eb365f91ede32b2f05cf",
+                            __v: 0
+                       
+                             }
+                    }
                     }
                 }
-            },          
-            '405':{description: "Validation exception"}
+            },         
+             '401': {
+              description: 'Unauthorized',
+              content: {
+                'application/json': {
+                  schema: {
+                  type: 'object',
+                  example:{
+                  error : 'Unauthorized'
+                  }
+                  },
+                },
+              },
+            },
+            '500': {
+              description: 'Internal server error',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'object',
+                    example:{
+                    error : 'error message'
+                    }
+                    },
+                },
+              },
+            },
             
         }
     },
@@ -41,17 +71,47 @@ const Ctasks = {
                 description:"ok",
                 content:{
                     "appication/json":{
-                        schema:{
-                            type:"object",
-                            example:{
-                                desc:"abell",
-                                completed: false,
-                            }
-                        }
+                      schema:{
+                        type:"array",
+                        example:{
+                          
+                            desc: "home work",
+                            completed: true,
+                            owner: "6476e9bf27d1b7b864dda166",
+                            _id: "6476eb365f91ede32b2f05cf",
+                            __v: 0
+                       
+                             }
+                    }
                     }
                 }
             },          
-            '405':{description: "Validation exception"}
+            '401': {
+              description: 'Unauthorized',
+              content: {
+                'application/json': {
+                  schema: {
+                  type: 'object',
+                  example:{
+                  error : 'Unauthorized'
+                  }
+                  },
+                },
+              },
+            },
+            '500': {
+              description: 'Internal server error',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'object',
+                    example:{
+                    error : 'error message'
+                    }
+                    },
+                },
+              },
+            },
             
         }
     },
@@ -82,29 +142,47 @@ const deleteTask = {
               description: "Successful operation",
               content: {
                 "application/json": {
-                  schema: {
-                    // Define the response schema for successful deletion
-                  },
+                  schema:{
+                    type:"object",
+                    example:{
+                    
+                        desc: "home work",
+                        completed: true,
+                        owner: "6476e9bf27d1b7b864dda166",
+                        _id: "6476eb365f91ede32b2f05cf",
+                        __v: 0
+                   
+                         }
+                },
                 },
               },
             },
             "404": {
               description: "Task not found",
+            },
+            '401': {
+              description: 'Unauthorized',
               content: {
-                "application/json": {
+                'application/json': {
                   schema: {
-                    // Define the response schema for task not found
+                  type: 'object',
+                  example:{
+                  error : 'Unauthorized'
+                  }
                   },
                 },
               },
             },
-            "500": {
-              description: "Internal server error",
+            '500': {
+              description: 'Internal server error',
               content: {
-                "application/json": {
+                'application/json': {
                   schema: {
-                    // Define the response schema for internal server error
-                  },
+                    type: 'object',
+                    example:{
+                    error : 'error message'
+                    }
+                    },
                 },
               },
             },
@@ -128,13 +206,16 @@ const deleteTask = {
               required: true,
               content: {
                 "application/json": {
-                  schema: {
+                  schema:{
                     type:"object",
                     example:{
-                        dec:"go to Gym at 12:00",
-                        completed:"true"
-                    }
-                  },
+                    
+                        desc: "home work",
+                        completed: true,
+                      
+                   
+                         }
+                },
                 },
               },
             },
@@ -148,39 +229,47 @@ const deleteTask = {
                 description: "Successful operation",
                 content: {
                   "application/json": {
-                    schema: {
-                      // Define the response schema for successful update
-                    },
+                    schema:{
+                      type:"object",
+                      example:{
+                      
+                          desc: "home work",
+                          completed: true,
+                          owner: "6476e9bf27d1b7b864dda166",
+                          _id: "6476eb365f91ede32b2f05cf",
+                          __v: 0
+                     
+                           }
                   },
-                },
-              },
-              "400": {
-                description: "Bad request",
-                content: {
-                  "application/json": {
-                    schema: {
-                      // Define the response schema for bad request
-                    },
                   },
                 },
               },
               "404": {
                 description: "Task not found",
+              },
+              '401': {
+                description: 'Unauthorized',
                 content: {
-                  "application/json": {
+                  'application/json': {
                     schema: {
-                      // Define the response schema for task not found
+                    type: 'object',
+                    example:{
+                    error : 'Unauthorized'
+                    }
                     },
                   },
                 },
               },
-              "500": {
-                description: "Internal server error",
+              '500': {
+                description: 'Internal server error',
                 content: {
-                  "application/json": {
+                  'application/json': {
                     schema: {
-                      // Define the response schema for internal server error
-                    },
+                      type: 'object',
+                      example:{
+                      error : 'error message'
+                      }
+                      },
                   },
                 },
               },
@@ -211,33 +300,47 @@ const deleteTask = {
                 description: "Successful operation",
                 content: {
                   "application/json": {
-                    schema: {
-                        type:"object",
-                        example:{
-                            dec:"go to Gym at 12:00",
-                            completed:"true"
-                        }
-                    },
+                    schema:{
+                      type:"object",
+                      example:{
+                      
+                          desc: "home work",
+                          completed: true,
+                          owner: "6476e9bf27d1b7b864dda166",
+                          _id: "6476eb365f91ede32b2f05cf",
+                          __v: 0
+                     
+                           }
+                  },
                   },
                 },
               },
               "404": {
                 description: "Task not found",
+              },
+              '401': {
+                description: 'Unauthorized',
                 content: {
-                  "application/json": {
+                  'application/json': {
                     schema: {
-                      // Define the response schema for task not found
+                    type: 'object',
+                    example:{
+                    error : 'Unauthorized'
+                    }
                     },
                   },
                 },
               },
-              "500": {
-                description: "Internal server error",
+              '500': {
+                description: 'Internal server error',
                 content: {
-                  "application/json": {
+                  'application/json': {
                     schema: {
-                      // Define the response schema for internal server error
-                    },
+                      type: 'object',
+                      example:{
+                      error : 'error message'
+                      }
+                      },
                   },
                 },
               },
@@ -282,14 +385,44 @@ const createTask = {
                     schema:{
                         type:"object",
                         example:{
-                            desc:"home work ",
-                            completed:"false",
+                        
+                            desc: "home work",
+                            completed: true,
+                            owner: "6476e9bf27d1b7b864dda166",
+                            _id: "6476eb365f91ede32b2f05cf",
+                            __v: 0
+                       
                              }
                     }
                 }
             }
+        }, '401': {
+          description: 'Unauthorized',
+          content: {
+            'application/json': {
+              schema: {
+              type: 'object',
+              example:{
+              error : 'Unauthorized'
+              }
+              },
+            },
+          },
         },
-        '405':{description: "Validation exception"}
+        '500': {
+          description: 'Internal server error',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                example:{
+                error : 'error message'
+                }
+                },
+            },
+          },
+        },
+         
         
     }
 }

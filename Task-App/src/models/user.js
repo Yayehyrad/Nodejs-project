@@ -69,7 +69,7 @@ userSchima.statics.findByCredentias = async (email , password)=>{
             }
             const isMatch = await bcrypt.compare(password , user.password)
             if(!isMatch){
-                throw new Error("Wrong password or email")
+                throw new Error(" invalid email or password")
             }
             return user
 
